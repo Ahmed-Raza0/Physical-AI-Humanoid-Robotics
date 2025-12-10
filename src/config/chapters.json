@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "title": "Physical AI Textbook",
+    "version": "1.0.0",
+    "updatedAt": "2025-12-10"
+  },
+  "chapters": [
+    {
+      "id": "chapter1-introduction",
+      "number": 1,
+      "title": "Introduction to Physical AI",
+      "filePath": "my-ai-textbook/docs/chapter1-introduction.md",
+      "estimatedWords": 2500,
+      "status": "draft",
+      "sections": [
+        {
+          "id": "what-is-physical-ai",
+          "title": "What is Physical AI?",
+          "level": 2,
+          "estimatedWords": 400,
+          "learningObjectives": [
+            "Define Physical AI and its key characteristics",
+            "Distinguish Physical AI from traditional AI systems"
+          ],
+          "keywords": ["embodied AI", "robotics", "sensors", "actuators"],
+          "includeCodeExample": false
+        },
+        {
+          "id": "history-evolution",
+          "title": "History and Evolution",
+          "level": 2,
+          "estimatedWords": 500,
+          "learningObjectives": [
+            "Trace the development of Physical AI from early robotics to modern systems"
+          ],
+          "keywords": ["timeline", "milestones", "industrial robots"],
+          "includeCodeExample": false
+        },
+        {
+          "id": "applications",
+          "title": "Real-World Applications",
+          "level": 2,
+          "estimatedWords": 600,
+          "learningObjectives": [
+            "Identify major application domains of Physical AI",
+            "Understand the impact of Physical AI across industries"
+          ],
+          "keywords": [
+            "manufacturing",
+            "healthcare",
+            "autonomous vehicles",
+            "service robots"
+          ],
+          "includeCodeExample": false
+        },
+        {
+          "id": "challenges",
+          "title": "Key Challenges and Opportunities",
+          "level": 2,
+          "estimatedWords": 500,
+          "learningObjectives": [
+            "Recognize technical challenges in Physical AI development",
+            "Understand future opportunities and research directions"
+          ],
+          "keywords": [
+            "real-time processing",
+            "safety",
+            "reliability",
+            "human-robot interaction"
+          ],
+          "includeCodeExample": false
+        },
+        {
+          "id": "course-overview",
+          "title": "Course Overview and Learning Path",
+          "level": 2,
+          "estimatedWords": 500,
+          "learningObjectives": [
+            "Understand the structure and goals of this textbook",
+            "Identify prerequisites and learning outcomes"
+          ],
+          "keywords": ["curriculum", "prerequisites", "learning objectives"],
+          "includeCodeExample": false
+        }
+      ]
+    }
+  ]
+}

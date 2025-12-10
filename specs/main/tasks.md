@@ -71,24 +71,24 @@ description: "Task list for textbook-generation feature implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T015 [P] [US1] Unit test for ClaudeClient API integration in tests/unit/ClaudeClient.test.ts
-- [ ] T016 [P] [US1] Unit test for PromptBuilder template rendering in tests/unit/PromptBuilder.test.ts
-- [ ] T017 [P] [US1] Unit test for ContentValidator markdown validation in tests/unit/ContentValidator.test.ts
-- [ ] T018 [P] [US1] Unit test for FileWriter file operations in tests/unit/FileWriter.test.ts
-- [ ] T019 [US1] Integration test for end-to-end chapter generation in tests/integration/generation-flow.test.ts
+- [X] T015 [P] [US1] Unit test for ClaudeClient API integration in tests/unit/ClaudeClient.test.ts
+- [X] T016 [P] [US1] Unit test for PromptBuilder template rendering in tests/unit/PromptBuilder.test.ts
+- [X] T017 [P] [US1] Unit test for ContentValidator markdown validation in tests/unit/ContentValidator.test.ts
+- [X] T018 [P] [US1] Unit test for FileWriter file operations in tests/unit/FileWriter.test.ts
+- [X] T019 [US1] Integration test for end-to-end chapter generation in tests/integration/generation-flow.test.ts
 
 ### Implementation for User Story 1
 
-- [ ] T020 [P] [US1] Implement ClaudeClient with retry logic and rate limiting in src/generator/ClaudeClient.ts
-- [ ] T021 [P] [US1] Create prompt templates in src/templates/section-prompt.md
-- [ ] T022 [US1] Implement PromptBuilder for constructing Claude prompts in src/generator/PromptBuilder.ts (depends on T021)
-- [ ] T023 [P] [US1] Implement ContentValidator for markdown validation in src/generator/ContentValidator.ts
-- [ ] T024 [P] [US1] Implement FileWriter for writing to docs/ with safety checks in src/generator/FileWriter.ts
-- [ ] T025 [US1] Implement Generator orchestrator in src/generator/Generator.ts (depends on T020, T022, T023, T024)
-- [ ] T026 [US1] Implement CLI generate command in src/cli/index.ts (depends on T025)
-- [ ] T027 [US1] Create example chapter specification in src/config/chapters.json
-- [ ] T028 [US1] Add error handling and logging to Generator
-- [ ] T029 [US1] Export public API in src/index.ts
+- [X] T020 [P] [US1] Implement ClaudeClient with retry logic and rate limiting in src/generator/ClaudeClient.ts
+- [X] T021 [P] [US1] Create prompt templates in src/templates/section-prompt.md
+- [X] T022 [US1] Implement PromptBuilder for constructing Claude prompts in src/generator/PromptBuilder.ts (depends on T021)
+- [X] T023 [P] [US1] Implement ContentValidator for markdown validation in src/generator/ContentValidator.ts
+- [X] T024 [P] [US1] Implement FileWriter for writing to docs/ with safety checks in src/generator/FileWriter.ts
+- [X] T025 [US1] Implement Generator orchestrator in src/generator/Generator.ts (depends on T020, T022, T023, T024)
+- [X] T026 [US1] Implement CLI generate command in src/cli/index.ts (depends on T025)
+- [X] T027 [US1] Create example chapter specification in src/config/chapters.json
+- [X] T028 [US1] Add error handling and logging to Generator
+- [X] T029 [US1] Export public API in src/index.ts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - can generate a single chapter end-to-end
 

@@ -15,8 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://physical-ai-humanoid-robotic-six.vercel.app/
-  ',
+  url: 'https://physical-ai-humanoid-robotic-six.vercel.app/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -75,7 +74,7 @@ const config: Config = {
           to: '/docs/chapter1-introduction',
         },
         {
-          href: 'https://github.com/my-github-org/my-ai-textbook',
+          href: '',
           label: 'GitHub',
           position: 'right',
         },

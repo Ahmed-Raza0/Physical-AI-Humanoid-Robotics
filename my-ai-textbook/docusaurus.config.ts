@@ -74,7 +74,7 @@ const config: Config = {
           to: '/docs/chapter1-introduction',
         },
         {
-          href: '',
+          href: 'https://github.com/Ahmed-Raza0/Physical-AI-Humanoid-Robotics.git',
           label: 'GitHub',
           position: 'right',
         },
@@ -97,7 +97,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/my-github-org/my-ai-textbook',
+              href: 'https://github.com/Ahmed-Raza0/Physical-AI-Humanoid-Robotics.git',
             },
           ],
         },

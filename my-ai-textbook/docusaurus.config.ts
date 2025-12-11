@@ -46,6 +46,7 @@ const config: Config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
+        blog: false, // Disable default blog to use custom blog page
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -74,6 +75,16 @@ const config: Config = {
           to: '/docs/chapter1-introduction',
         },
         {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
+        },
+        {
+          to: '/chatbot',
+          label: 'AI Chatbot',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/Ahmed-Raza0/Physical-AI-Humanoid-Robotics.git',
           label: 'GitHub',
           position: 'right',
@@ -84,16 +95,24 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Learn',
           items: [
             {
               label: 'Textbook',
               to: '/docs/chapter1-introduction',
             },
+            {
+              label: 'Blog',
+              to: '/blog',
+            },
+            {
+              label: 'AI Chatbot',
+              to: '/chatbot',
+            },
           ],
         },
         {
-          title: 'More',
+          title: 'Community',
           items: [
             {
               label: 'GitHub',

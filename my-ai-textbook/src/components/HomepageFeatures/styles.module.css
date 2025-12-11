@@ -1,11 +1,95 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 4rem 0;
   width: 100%;
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+[data-theme='dark'] .features {
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .featureSvg {
   height: 200px;
   width: 200px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: floatSvg 6s ease-in-out infinite;
+}
+
+.featureSvg:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.3));
+}
+
+@keyframes floatSvg {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Add staggered animation delays for each feature */
+.features .col:nth-child(1) .featureSvg {
+  animation-delay: 0s;
+}
+
+.features .col:nth-child(2) .featureSvg {
+  animation-delay: 0.5s;
+}
+
+.features .col:nth-child(3) .featureSvg {
+  animation-delay: 1s;
+}
+
+/* Card styling for feature items */
+.features .col {
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.features .col:hover {
+  transform: translateY(-10px);
+}
+
+.features .col > div {
+  padding: 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .features .col > div {
+  background: rgba(30, 42, 58, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.features .col:hover > div {
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+[data-theme='dark'] .features .col:hover > div {
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+  background: rgba(30, 42, 58, 1);
+}
+
+/* Text animations */
+.features h3 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #667eea;
+  transition: color 0.3s ease;
+}
+
+.features .col:hover h3 {
+  color: #764ba2;
+}
+
+.features p {
+  line-height: 1.8;
+  transition: color 0.3s ease;
 }

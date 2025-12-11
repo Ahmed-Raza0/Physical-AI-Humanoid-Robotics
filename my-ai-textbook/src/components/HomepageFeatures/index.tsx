@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Comprehensive Learning Path',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Master Physical AI and Humanoid Robotics from fundamentals to advanced topics.
+        Our structured curriculum covers perception, planning, control, and real-world applications.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Hands-On Approach',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Learn by doing with practical code examples, simulations, and real robot integration.
+        Build actual AI-powered robotic systems from day one with ROS 2 and modern frameworks.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'AI-Powered Assistant',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Get instant help from our AI chatbot trained on robotics knowledge.
+        Ask questions, clarify concepts, and receive personalized guidance on your learning journey.
       </>
     ),
   },

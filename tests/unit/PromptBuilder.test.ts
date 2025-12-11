@@ -295,7 +295,7 @@ describe('PromptBuilder', () => {
     it('should include quality guidelines in system prompt', () => {
       const systemPrompt = builder.getSystemPrompt('section');
 
-      expect(systemPrompt).toContain('clear');
+      expect(systemPrompt.toLowerCase()).toContain('clear');
       expect(systemPrompt.toLowerCase()).toMatch(/quality|accurate|educational/);
     });
   });

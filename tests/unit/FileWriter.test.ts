@@ -6,12 +6,37 @@
 import { FileWriter } from '../../src/generator/FileWriter';
 import { GeneratedContent } from '../../src/types/models';
 import { FileOperationError } from '../../src/generator/errors';
-import * as fs from 'fs';
 import * as path from 'path';
 
-// Mock fs module
-jest.mock('fs');
-jest.mock('fs/promises');
+// Mock fs module with proper structure
+jest.mock('fs', () => {
+  const mockWriteFile = jest.fn();
+  const mockMkdir = jest.fn();
+  const mockAccess = jest.fn();
+  const mockUnlink = jest.fn();
+  const mockCopyFile = jest.fn();
+  const mockExistsSync = jest.fn();
+
+  return {
+    promises: {
+      writeFile: mockWriteFile,
+      mkdir: mockMkdir,
+      access: mockAccess,
+      unlink: mockUnlink,
+      copyFile: mockCopyFile,
+    },
+    existsSync: mockExistsSync,
+  };
+});
+
+// Get references to the mocked functions
+const fs = require('fs');
+const mockWriteFile = fs.promises.writeFile as jest.Mock;
+const mockMkdir = fs.promises.mkdir as jest.Mock;
+const mockAccess = fs.promises.access as jest.Mock;
+const mockUnlink = fs.promises.unlink as jest.Mock;
+const mockCopyFile = fs.promises.copyFile as jest.Mock;
+const mockExistsSync = fs.existsSync as jest.Mock;
 
 describe('FileWriter', () => {
   let writer: FileWriter;
@@ -63,9 +88,8 @@ This is test content.`,
 
   describe('writeChapter', () => {
     it('should write content to file', async () => {
-      const mockWriteFile = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
+      mockWriteFile.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(true);
 
       await writer.writeChapter('chapter1-intro.md', mockContent);
 
@@ -78,11 +102,9 @@ This is test content.`,
     });
 
     it('should create output directory if it does not exist', async () => {
-      const mockMkdir = jest.fn().mockResolvedValue(undefined);
-      const mockWriteFile = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.mkdir as jest.Mock) = mockMkdir;
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(false);
+      mockMkdir.mockResolvedValue(undefined);
+      mockWriteFile.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(false);
 
       await writer.writeChapter('chapter1-intro.md', mockContent);
 
@@ -90,9 +112,8 @@ This is test content.`,
     });
 
     it('should sanitize file path to prevent directory traversal', async () => {
-      const mockWriteFile = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
+      mockWriteFile.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(true);
 
       await expect(
         writer.writeChapter('../../../etc/passwd', mockContent)
@@ -106,11 +127,8 @@ This is test content.`,
     });
 
     it('should handle write errors gracefully', async () => {
-      const mockWriteFile = jest
-        .fn()
-        .mockRejectedValue(new Error('Permission denied'));
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
+      mockWriteFile.mockRejectedValue(new Error('Permission denied'));
+      mockExistsSync.mockReturnValue(true);
 
       await expect(writer.writeChapter('test.md', mockContent)).rejects.toThrow(
         FileOperationError
@@ -119,12 +137,11 @@ This is test content.`,
 
     it('should preserve markdown formatting', async () => {
       let writtenContent = '';
-      const mockWriteFile = jest.fn().mockImplementation((_path, content) => {
+      mockWriteFile.mockImplementation((_path, content) => {
         writtenContent = content;
         return Promise.resolve();
       });
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
+      mockExistsSync.mockReturnValue(true);
 
       await writer.writeChapter('test.md', mockContent);
 
@@ -136,11 +153,9 @@ This is test content.`,
 
   describe('writeLog', () => {
     it('should write generation log to JSON file', async () => {
-      const mockWriteFile = jest.fn().mockResolvedValue(undefined);
-      const mockMkdir = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.promises.mkdir as jest.Mock) = mockMkdir;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(false);
+      mockWriteFile.mockResolvedValue(undefined);
+      mockMkdir.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(false);
 
       const logData = {
         chapterId: 'chapter1-intro',
@@ -160,14 +175,12 @@ This is test content.`,
 
     it('should format JSON with proper indentation', async () => {
       let writtenContent = '';
-      const mockWriteFile = jest.fn().mockImplementation((_path, content) => {
+      mockWriteFile.mockImplementation((_path, content) => {
         writtenContent = content;
         return Promise.resolve();
       });
-      const mockMkdir = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.promises.mkdir as jest.Mock) = mockMkdir;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(false);
+      mockMkdir.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(false);
 
       await writer.writeLog('test.json', { test: 'data' });
 
@@ -179,16 +192,14 @@ This is test content.`,
 
   describe('fileExists', () => {
     it('should return true for existing file', async () => {
-      (fs.promises.access as jest.Mock) = jest.fn().mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       const exists = await writer.fileExists('existing-file.md');
       expect(exists).toBe(true);
     });
 
     it('should return false for non-existent file', async () => {
-      (fs.promises.access as jest.Mock) = jest
-        .fn()
-        .mockRejectedValue(new Error('File not found'));
+      mockAccess.mockRejectedValue(new Error('File not found'));
 
       const exists = await writer.fileExists('missing-file.md');
       expect(exists).toBe(false);
@@ -197,9 +208,8 @@ This is test content.`,
 
   describe('deleteFile', () => {
     it('should delete existing file', async () => {
-      const mockUnlink = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.unlink as jest.Mock) = mockUnlink;
-      (fs.promises.access as jest.Mock) = jest.fn().mockResolvedValue(undefined);
+      mockUnlink.mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       await writer.deleteFile('file-to-delete.md');
 
@@ -209,9 +219,7 @@ This is test content.`,
     });
 
     it('should throw error when deleting non-existent file', async () => {
-      (fs.promises.access as jest.Mock) = jest
-        .fn()
-        .mockRejectedValue(new Error('File not found'));
+      mockAccess.mockRejectedValue(new Error('File not found'));
 
       await expect(writer.deleteFile('missing.md')).rejects.toThrow(FileOperationError);
     });
@@ -225,10 +233,8 @@ This is test content.`,
 
   describe('backupFile', () => {
     it('should create backup of existing file', async () => {
-      const mockCopyFile = jest.fn().mockResolvedValue(undefined);
-      const mockAccess = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.copyFile as jest.Mock) = mockCopyFile;
-      (fs.promises.access as jest.Mock) = mockAccess;
+      mockCopyFile.mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       await writer.backupFile('original.md');
 
@@ -239,10 +245,8 @@ This is test content.`,
     });
 
     it('should append timestamp to backup filename', async () => {
-      const mockCopyFile = jest.fn().mockResolvedValue(undefined);
-      const mockAccess = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.copyFile as jest.Mock) = mockCopyFile;
-      (fs.promises.access as jest.Mock) = mockAccess;
+      mockCopyFile.mockResolvedValue(undefined);
+      mockAccess.mockResolvedValue(undefined);
 
       await writer.backupFile('test.md', true);
 
@@ -274,9 +278,8 @@ This is test content.`,
     });
 
     it('should allow .md and .mdx extensions', async () => {
-      const mockWriteFile = jest.fn().mockResolvedValue(undefined);
-      (fs.promises.writeFile as jest.Mock) = mockWriteFile;
-      (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
+      mockWriteFile.mockResolvedValue(undefined);
+      mockExistsSync.mockReturnValue(true);
 
       await writer.writeChapter('test.md', mockContent);
       await writer.writeChapter('test.mdx', mockContent);

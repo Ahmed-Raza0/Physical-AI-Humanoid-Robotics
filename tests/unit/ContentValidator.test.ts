@@ -84,9 +84,14 @@ code without language
     it('should accept code blocks with language', () => {
       const markdown = `---
 title: "Test"
+description: "Test description"
+keywords: ["test"]
+sidebar_position: 1
 ---
 
 # Test
+
+This is a test section with enough content to pass validation requirements.
 
 \`\`\`python
 print("Hello")
@@ -110,15 +115,20 @@ Hi.`;
     it('should validate multiple code blocks', () => {
       const markdown = `---
 title: "Test"
+description: "Test description"
+keywords: ["test"]
+sidebar_position: 1
 ---
 
 # Test
+
+This section demonstrates multiple code blocks with different programming languages.
 
 \`\`\`python
 print("Hello")
 \`\`\`
 
-Some text.
+Some text explaining the code above and introducing the next example.
 
 \`\`\`javascript
 console.log("Hello");
@@ -197,7 +207,7 @@ sidebar_position: 1
 
 # Test Section
 
-This is valid content with sufficient length.`,
+This is valid content with sufficient length to pass the minimum character requirement for markdown validation. The content must be at least 100 characters.`,
         metadata: {
           title: 'Test',
           description: 'Test description',
@@ -407,7 +417,7 @@ sidebar_position: 1
 
 # Test
 
-Valid content with sufficient length.`;
+This is valid content with sufficient length to pass the minimum character requirement. We need to ensure that the content is at least 100 characters long after removing the front matter.`;
 
       const errors = validator.getValidationErrors(markdown);
       expect(errors).toEqual([]);

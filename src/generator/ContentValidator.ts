@@ -35,10 +35,29 @@ export class ContentValidator {
     }
 
     // Check code blocks have language specified
-    // Match code blocks that start with ``` followed immediately by newline (no language)
-    const codeBlocksWithoutLang = markdown.match(/```[ \t]*\n/g);
-    if (codeBlocksWithoutLang && codeBlocksWithoutLang.length > 0) {
-      errors.push('All code blocks must specify a language (e.g., ```python)');
+    // Match opening code blocks (``` at start of line)
+    // We need to find code blocks that don't have a language specifier
+    const lines = markdown.split('\n');
+    let inCodeBlock = false;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Check if this line starts a code block
+      if (line.trim().startsWith('```')) {
+        if (!inCodeBlock) {
+          // This is an opening block
+          const languageSpecifier = line.trim().substring(3).trim();
+          if (languageSpecifier.length === 0) {
+            errors.push('All code blocks must specify a language (e.g., ```python)');
+            break;
+          }
+          inCodeBlock = true;
+        } else {
+          // This is a closing block
+          inCodeBlock = false;
+        }
+      }
     }
 
     // Validate links

@@ -9,13 +9,39 @@ import { FileWriter } from '../../src/generator/FileWriter';
 import { ClaudeClient } from '../../src/generator/ClaudeClient';
 import { PromptBuilder } from '../../src/generator/PromptBuilder';
 import { ContentValidator } from '../../src/generator/ContentValidator';
-import * as fs from 'fs';
 import * as path from 'path';
 import { MOCK_SECTION_RESPONSE } from '../mocks/claude-responses';
 
-// Mock file system
-jest.mock('fs');
-jest.mock('fs/promises');
+// Mock file system with proper structure
+jest.mock('fs', () => {
+  const mockWriteFile = jest.fn();
+  const mockMkdir = jest.fn();
+  const mockReadFile = jest.fn();
+  const mockAccess = jest.fn();
+  const mockUnlink = jest.fn();
+  const mockCopyFile = jest.fn();
+  const mockExistsSync = jest.fn();
+
+  return {
+    promises: {
+      writeFile: mockWriteFile,
+      mkdir: mockMkdir,
+      readFile: mockReadFile,
+      access: mockAccess,
+      unlink: mockUnlink,
+      copyFile: mockCopyFile,
+    },
+    existsSync: mockExistsSync,
+  };
+});
+
+// Get references to the mocked functions
+const fs = require('fs');
+const mockWriteFile = fs.promises.writeFile as jest.Mock;
+const mockMkdir = fs.promises.mkdir as jest.Mock;
+const mockReadFile = fs.promises.readFile as jest.Mock;
+const mockAccess = fs.promises.access as jest.Mock;
+const mockExistsSync = fs.existsSync as jest.Mock;
 
 // Mock Anthropic SDK
 jest.mock('@anthropic-ai/sdk');
@@ -29,10 +55,10 @@ describe('Generation Flow Integration', () => {
     jest.clearAllMocks();
 
     // Setup mock file system
-    (fs.existsSync as jest.Mock) = jest.fn().mockReturnValue(true);
-    (fs.promises.mkdir as jest.Mock) = jest.fn().mockResolvedValue(undefined);
-    (fs.promises.writeFile as jest.Mock) = jest.fn().mockResolvedValue(undefined);
-    (fs.promises.readFile as jest.Mock) = jest.fn().mockResolvedValue('template content');
+    mockExistsSync.mockReturnValue(true);
+    mockMkdir.mockResolvedValue(undefined);
+    mockWriteFile.mockResolvedValue(undefined);
+    mockReadFile.mockResolvedValue('template content');
 
     // Create test chapter specification
     mockChapterSpec = {
@@ -96,7 +122,7 @@ describe('Generation Flow Integration', () => {
       expect(result.totalCost).toBeGreaterThan(0);
 
       // Verify file was written
-      expect(fs.promises.writeFile).toHaveBeenCalled();
+      expect(mockWriteFile).toHaveBeenCalled();
     });
 
     it('should generate all sections in sequence', async () => {
@@ -131,7 +157,7 @@ describe('Generation Flow Integration', () => {
       await generator.generateChapter(mockChapterSpec);
 
       // Should write both markdown file and log file
-      const writeFileCalls = (fs.promises.writeFile as jest.Mock).mock.calls;
+      const writeFileCalls = mockWriteFile.mock.calls;
       expect(writeFileCalls.length).toBeGreaterThanOrEqual(2);
 
       // Check that log file was written
@@ -214,7 +240,7 @@ describe('Generation Flow Integration', () => {
       await generator.generateChapter(mockChapterSpec);
 
       // Should still write file even with partial success
-      expect(fs.promises.writeFile).toHaveBeenCalled();
+      expect(mockWriteFile).toHaveBeenCalled();
     });
   });
 
@@ -250,7 +276,7 @@ describe('Generation Flow Integration', () => {
       await generator.generateChapter(mockChapterSpec);
 
       // Should not write markdown file, only log
-      const writeFileCalls = (fs.promises.writeFile as jest.Mock).mock.calls;
+      const writeFileCalls = mockWriteFile.mock.calls;
       const markdownWritten = writeFileCalls.some(
         (call) => call[0].includes('.md') && !call[0].includes('generation-')
       );
@@ -276,7 +302,7 @@ describe('Generation Flow Integration', () => {
       await dryRunGenerator.generateChapter(mockChapterSpec);
 
       // Should not write any files in dry run
-      expect(fs.promises.writeFile).not.toHaveBeenCalled();
+      expect(mockWriteFile).not.toHaveBeenCalled();
     });
 
     it('should still validate content in dry run mode', async () => {

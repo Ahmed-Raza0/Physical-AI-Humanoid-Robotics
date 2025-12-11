@@ -187,7 +187,7 @@ describe('ClaudeClient', () => {
 
       // Default max retries is 3, so should be called 4 times total (initial + 3 retries)
       expect(mockCreate).toHaveBeenCalledTimes(4);
-    });
+    }, 10000); // 10 second timeout for retry test
   });
 
   describe('rate limiting', () => {

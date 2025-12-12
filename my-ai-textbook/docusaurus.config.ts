@@ -54,6 +54,31 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    function customWebpackConfig() {
+      return {
+        name: 'custom-webpack-config',
+        configureWebpack(config, isServer) {
+          if (!isServer) {
+            return {
+              resolve: {
+                fallback: {
+                  fs: false,
+                  path: false,
+                  'fs/promises': false,
+                  crypto: false,
+                  stream: false,
+                  buffer: false,
+                },
+              },
+            };
+          }
+          return {};
+        },
+      };
+    },
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
@@ -83,6 +108,16 @@ const config: Config = {
           to: '/chatbot',
           label: 'AI Chatbot',
           position: 'left',
+        },
+        {
+          to: '/dashboard',
+          label: 'Dashboard',
+          position: 'right',
+        },
+        {
+          to: '/login',
+          label: 'Login',
+          position: 'right',
         },
         {
           href: 'https://github.com/Ahmed-Raza0/Physical-AI-Humanoid-Robotics.git',

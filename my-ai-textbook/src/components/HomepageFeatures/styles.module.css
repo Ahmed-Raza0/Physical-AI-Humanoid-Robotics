@@ -93,3 +93,53 @@
   line-height: 1.8;
   transition: color 0.3s ease;
 }
+
+/* Responsive Design */
+
+/* Tablet (768px - 1024px) */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .features {
+    padding: 3rem 0;
+  }
+
+  .featureSvg {
+    height: 180px;
+    width: 180px;
+  }
+
+  .features h3 {
+    font-size: 1.3rem;
+  }
+
+  .features .col > div {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile (max 768px) */
+@media screen and (max-width: 768px) {
+  .features {
+    padding: 2rem 0;
+  }
+
+  .featureSvg {
+    height: 150px;
+    width: 150px;
+  }
+
+  .features h3 {
+    font-size: 1.2rem;
+  }
+
+  .features p {
+    font-size: 0.95rem;
+  }
+
+  .features .col > div {
+    padding: 1.5rem 1rem;
+  }
+
+  .features .col {
+    margin-bottom: 1.5rem;
+  }
+}

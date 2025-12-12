@@ -83,17 +83,49 @@
   }
 }
 
-@media screen and (max-width: 996px) {
+/* Tablet (768px - 1024px) */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
   .heroBanner {
-    padding: 3rem 2rem;
+    padding: 4.5rem 2rem;
   }
 
   .heroTitle {
-    font-size: 2.5rem !important;
+    font-size: 3rem !important;
   }
 
   .heroSubtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .buttons {
+    gap: 1.2rem;
+  }
+}
+
+/* Mobile (max 768px) */
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 3rem 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem !important;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 300px;
   }
 }
 

@@ -1,0 +1,377 @@
+.dashboardContainer {
+  min-height: calc(100vh - 60px);
+  background: #f7fafc;
+}
+
+.loadingContainer {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+.dashboardHeader {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.headerContent h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  opacity: 0.95;
+  font-size: 1.05rem;
+}
+
+.logoutButton {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.logoutButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Content */
+.dashboardContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardHeader {
+  padding: 24px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #2d3748;
+}
+
+.cardBody {
+  padding: 24px;
+}
+
+/* Profile Info */
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.value {
+  color: #2d3748;
+}
+
+/* Quick Actions */
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background: white;
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.actionIcon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.actionButton h3 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  color: #2d3748;
+}
+
+.actionButton p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+/* Progress */
+.progressList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.progressItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #2d3748;
+}
+
+.progressPercent {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.progressBar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.comingSoon {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  color: #718096;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Resources */
+.resourceList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resourceList li {
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-left: 4px solid #667eea;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.resourceList li:hover {
+  background: #edf2f7;
+  transform: translateX(4px);
+}
+
+.resourceList a {
+  text-decoration: none;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.resourceList a:hover {
+  color: #667eea;
+}
+
+/* Dark Mode Support */
+[data-theme='dark'] .dashboardContainer {
+  background: #0d1117;
+}
+
+[data-theme='dark'] .card {
+  background: #1e2a3a;
+}
+
+[data-theme='dark'] .cardHeader {
+  border-bottom-color: #2d3748;
+}
+
+[data-theme='dark'] .cardHeader h2 {
+  color: #f7fafc;
+}
+
+[data-theme='dark'] .infoRow {
+  border-bottom-color: #2d3748;
+}
+
+[data-theme='dark'] .label {
+  color: #cbd5e0;
+}
+
+[data-theme='dark'] .value {
+  color: #f7fafc;
+}
+
+[data-theme='dark'] .actionButton {
+  background: #2d3748;
+  border-color: #4a5568;
+}
+
+[data-theme='dark'] .actionButton:hover {
+  background: #374151;
+  border-color: #667eea;
+}
+
+[data-theme='dark'] .actionButton h3 {
+  color: #f7fafc;
+}
+
+[data-theme='dark'] .actionButton p {
+  color: #a0aec0;
+}
+
+[data-theme='dark'] .progressHeader {
+  color: #f7fafc;
+}
+
+[data-theme='dark'] .progressBar {
+  background: #2d3748;
+}
+
+[data-theme='dark'] .comingSoon {
+  border-top-color: #2d3748;
+  color: #a0aec0;
+}
+
+[data-theme='dark'] .resourceList li {
+  background: #2d3748;
+}
+
+[data-theme='dark'] .resourceList li:hover {
+  background: #374151;
+}
+
+[data-theme='dark'] .resourceList a {
+  color: #cbd5e0;
+}
+
+[data-theme='dark'] .resourceList a:hover {
+  color: #667eea;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .headerContent h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .dashboardContent {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .actionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionButton {
+    padding: 16px;
+  }
+
+  .actionIcon {
+    font-size: 2rem;
+  }
+}

@@ -21,6 +21,66 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
+}
+
+.apiKeyButton {
+  margin-left: auto;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.apiKeyButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.apiKeyInput {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 15px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.apiInput {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2d3748;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.apiInput:focus {
+  border-color: white;
+  background: white;
+}
+
+.apiSubmit {
+  padding: 12px 24px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.apiSubmit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .botAvatar {
@@ -181,6 +241,41 @@
   opacity: 0.7;
   display: block;
   margin-top: 5px;
+}
+
+.sources {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sourcesTitle {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.source {
+  padding: 6px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-left: 3px solid #667eea;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.source:last-child {
+  margin-bottom: 0;
+}
+
+.userMessage .sources {
+  border-top-color: rgba(255, 255, 255, 0.3);
+}
+
+.userMessage .source {
+  background: rgba(255, 255, 255, 0.2);
+  border-left-color: white;
 }
 
 /* Typing Indicator */

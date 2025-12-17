@@ -1,13 +1,13 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 4rem 0;
+  padding: 5rem 0;
   width: 100%;
-  background: linear-gradient(180deg, rgba(102, 126, 234, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, #DBEAFE 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 [data-theme='dark'] .features {
-  background: linear-gradient(180deg, rgba(102, 126, 234, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(180deg, rgba(30, 64, 175, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .featureSvg {
@@ -19,7 +19,7 @@
 
 .featureSvg:hover {
   transform: scale(1.1) rotate(5deg);
-  filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.3));
+  filter: drop-shadow(0 10px 20px rgba(30, 64, 175, 0.3));
 }
 
 @keyframes floatSvg {
@@ -54,39 +54,39 @@
   transform: translateY(-10px);
 }
 
-.features .col > div {
-  padding: 2rem;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.featureCard {
+  padding: 2.5rem;
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(30, 64, 175, 0.1);
+  height: 100%;
 }
 
-[data-theme='dark'] .features .col > div {
-  background: rgba(30, 42, 58, 0.8);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.features .col:hover > div {
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
-  background: rgba(255, 255, 255, 1);
-}
-
-[data-theme='dark'] .features .col:hover > div {
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-  background: rgba(30, 42, 58, 1);
+[data-theme='dark'] .featureCard {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: rgba(59, 130, 246, 0.2);
 }
 
 /* Text animations */
 .features h3 {
   font-size: 1.5rem;
   margin-top: 1rem;
-  color: #667eea;
-  transition: color 0.3s ease;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1E40AF, #0891B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
 }
 
-.features .col:hover h3 {
-  color: #764ba2;
+[data-theme='dark'] .features h3 {
+  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .features p {

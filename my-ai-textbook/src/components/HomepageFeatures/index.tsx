@@ -1,6 +1,8 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import { motion } from 'framer-motion';
+import { staggerContainer, staggerItem, cardVariants } from '../../theme/animations';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -42,17 +44,37 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, Svg, description, delay}: FeatureItem & {delay: number}) {
+  const customCardVariants = {
+    ...cardVariants,
+    visible: {
+      ...cardVariants.visible,
+      transition: {
+        ...cardVariants.visible.transition,
+        delay,
+      },
+    },
+  };
+
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+    <motion.div
+      className={clsx('col col--4')}
+      initial="hidden"
+      whileInView="visible"
+      whileHover="hover"
+      viewport={{ once: true, margin: '-50px' }}
+      variants={customCardVariants}
+    >
+      <div className={styles.featureCard}>
+        <div className="text--center">
+          <Svg className={styles.featureSvg} role="img" />
+        </div>
+        <div className="text--center padding-horiz--md">
+          <Heading as="h3">{title}</Heading>
+          <p>{description}</p>
+        </div>
       </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -62,7 +84,7 @@ export default function HomepageFeatures(): ReactNode {
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+            <Feature key={idx} {...props} delay={idx * 0.2} />
           ))}
         </div>
       </div>

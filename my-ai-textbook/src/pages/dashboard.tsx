@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { motion } from 'framer-motion';
+import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../theme/animations';
 import { getAuthClient, type User } from '../lib/client/authClient';
 import styles from './dashboard.module.css';
 
@@ -71,9 +73,14 @@ export default function Dashboard(): JSX.Element {
           </div>
         </div>
 
-        <div className={styles.dashboardContent}>
+        <motion.div
+          className={styles.dashboardContent}
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
           {/* User Info Card */}
-          <div className={styles.card}>
+          <motion.div className={styles.card} variants={cardVariants} whileHover="hover">
             <div className={styles.cardHeader}>
               <h2>👤 Profile Information</h2>
             </div>
@@ -93,10 +100,10 @@ export default function Dashboard(): JSX.Element {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Actions */}
-          <div className={styles.card}>
+          <motion.div className={styles.card} variants={cardVariants} whileHover="hover">
             <div className={styles.cardHeader}>
               <h2>🚀 Quick Actions</h2>
             </div>
@@ -125,10 +132,10 @@ export default function Dashboard(): JSX.Element {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Learning Progress */}
-          <div className={styles.card}>
+          <motion.div className={styles.card} variants={cardVariants} whileHover="hover">
             <div className={styles.cardHeader}>
               <h2>📊 Learning Progress</h2>
             </div>
@@ -166,10 +173,10 @@ export default function Dashboard(): JSX.Element {
                 💡 Progress tracking coming soon! Start learning to track your progress.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Resources */}
-          <div className={styles.card}>
+          <motion.div className={styles.card} variants={cardVariants} whileHover="hover">
             <div className={styles.cardHeader}>
               <h2>🎯 Recommended Resources</h2>
             </div>
@@ -202,8 +209,8 @@ export default function Dashboard(): JSX.Element {
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </Layout>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { motion } from 'framer-motion';
+import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../theme/animations';
 import styles from './blog.module.css';
 
 interface BlogPost {
@@ -97,12 +99,19 @@ export default function Blog(): JSX.Element {
       <div className={styles.blogContainer}>
         {/* Hero Section */}
         <div className={styles.hero}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>Physical AI Blog</h1>
-            <p className={styles.heroSubtitle}>
+          <motion.div
+            className={styles.heroContent}
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            <motion.h1 className={styles.heroTitle} variants={staggerItem}>
+              Physical AI Blog
+            </motion.h1>
+            <motion.p className={styles.heroSubtitle} variants={staggerItem}>
               Insights, tutorials, and the latest developments in robotics and AI
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
 
         {/* Search and Filter Section */}
@@ -140,9 +149,21 @@ export default function Blog(): JSX.Element {
               <p>No articles found matching your criteria.</p>
             </div>
           ) : (
-            <div className={styles.postsGrid}>
-              {filteredPosts.map(post => (
-                <article key={post.id} className={styles.blogCard}>
+            <motion.div
+              className={styles.postsGrid}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-100px' }}
+              variants={staggerContainer}
+            >
+              {filteredPosts.map((post, index) => (
+                <motion.article
+                  key={post.id}
+                  className={styles.blogCard}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  custom={index}
+                >
                   <div className={styles.cardImage}>
                     <span className={styles.imageEmoji}>{post.image}</span>
                   </div>
@@ -163,9 +184,9 @@ export default function Blog(): JSX.Element {
                       </Link>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
 

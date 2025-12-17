@@ -3,6 +3,11 @@
   background: #f7fafc;
   position: relative;
   z-index: 1;
+  /* Prevent stacking context - navbar must stay on top */
+  transform: none !important;
+  filter: none !important;
+  isolation: auto !important;
+  overflow: visible !important;
 }
 
 .loadingContainer {

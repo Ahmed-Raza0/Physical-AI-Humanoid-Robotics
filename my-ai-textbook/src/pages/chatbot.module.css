@@ -7,6 +7,11 @@
   flex-direction: column;
   position: relative;
   z-index: 1;
+  /* Prevent stacking context - navbar must stay on top */
+  transform: none !important;
+  filter: none !important;
+  isolation: auto !important;
+  overflow: visible !important;
 }
 
 /* Error Notification */
@@ -25,7 +30,7 @@
   gap: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   animation: slideInDown 0.3s ease-out;
-  z-index: 9997;
+  z-index: 90000;
   max-width: 90%;
   font-weight: 500;
 }

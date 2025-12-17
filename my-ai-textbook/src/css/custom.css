@@ -94,55 +94,99 @@ html {
 
 /* Enhanced navbar with proper z-index stacking */
 .navbar {
-  backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  /* REMOVED backdrop-filter - it creates a stacking context that blocks mobile menu */
+  background-color: rgba(255, 255, 255, 0.98) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid var(--color-border);
-  position: sticky;
+  position: fixed !important;
   top: 0;
-  z-index: 9999;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99999 !important;
+  /* Prevent this element from creating a stacking context */
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
 }
 
 [data-theme='dark'] .navbar {
-  background-color: rgba(15, 23, 42, 0.95) !important;
+  background-color: rgba(15, 23, 42, 0.98) !important;
   border-bottom-color: var(--color-border);
 }
 
-/* Mobile menu and sidebar z-index fixes */
+/* Mobile menu and sidebar z-index fixes - MAXIMUM VALUES */
 .navbar-sidebar {
-  z-index: 10000 !important;
+  z-index: 999999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  /* Prevent stacking context issues */
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
 }
 
 .navbar-sidebar__backdrop {
-  z-index: 9998 !important;
+  z-index: 999998 !important;
   background: rgba(0, 0, 0, 0.6) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
 }
 
 .navbar-sidebar__brand,
 .navbar-sidebar__items {
-  z-index: 10001 !important;
+  z-index: 999999 !important;
+  position: relative !important;
 }
 
 /* Ensure mobile menu toggle button is accessible */
 .navbar__toggle {
-  z-index: 10002 !important;
+  z-index: 999999 !important;
+  position: relative !important;
 }
 
 /* Global z-index hierarchy to prevent stacking issues */
 /* Layer 1: Page content (z-index: 1) */
 /* Layer 2: Modals and overlays (z-index: 1000-5000) */
-/* Layer 3: Navigation (z-index: 9998-10002) */
+/* Layer 3: Navigation (z-index: 99999-999999) - MAXIMUM to ensure always on top */
 
-/* Ensure main content stays below navbar */
+/* Ensure main content stays below navbar and compensate for fixed navbar */
 main,
 .main-wrapper {
   position: relative;
   z-index: 1;
+  /* No transform, filter, or will-change to avoid stacking context */
+  transform: none !important;
+}
+
+/* Add padding to body to compensate for fixed navbar */
+body {
+  padding-top: 60px;
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.navbar-sidebar--show {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
 }
 
 /* Prevent page containers from creating new stacking contexts above navbar */
-[class*="Container"] {
-  isolation: auto;
+[class*="Container"],
+[class*="container"],
+[class*="wrapper"],
+[class*="layout"] {
+  isolation: auto !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
 }
 
 /* Ensure dropdowns and modals use appropriate z-index */
@@ -151,11 +195,48 @@ main,
   z-index: 5000;
 }
 
-/* Framer Motion animations - maintain stacking order */
-[data-framer-motion] {
-  will-change: transform, opacity;
-  /* Do not create new stacking context */
-  isolation: auto;
+/* Framer Motion animations - prevent stacking context creation */
+[data-framer-motion],
+.motion-div,
+div[style*="transform"],
+section[style*="transform"],
+header[style*="transform"] {
+  /* CRITICAL: Do not create new stacking contexts that block navbar */
+  isolation: auto !important;
+  /* Only allow these if z-index is explicitly low */
+  z-index: auto !important;
+}
+
+/* Ensure Framer Motion parent containers don't block navbar */
+div:has(> [data-framer-motion]),
+section:has(> [data-framer-motion]),
+header:has(> [data-framer-motion]) {
+  isolation: auto !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Critical: Override any runtime inline styles that could create stacking contexts */
+main[style*="transform"],
+div[class*="Container"][style*="transform"],
+div[class*="wrapper"][style*="transform"],
+div[class*="layout"][style*="transform"] {
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Ensure Layout and theme components don't create stacking contexts */
+div[class*="Layout"],
+div[class*="theme-"] {
+  isolation: auto !important;
+}
+
+/* Override any page-level containers */
+article,
+section,
+header:not(.navbar) {
+  isolation: auto !important;
+  transform: none !important;
 }
 
 /* Ensure sidebar doesn't get clipped */

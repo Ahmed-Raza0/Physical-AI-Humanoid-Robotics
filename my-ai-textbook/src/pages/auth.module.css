@@ -5,6 +5,13 @@
   justify-content: center;
   padding: 40px 20px;
   background: linear-gradient(135deg, #1E40AF 0%, #0891B2 50%, #7C3AED 100%);
+  /* Prevent stacking context - navbar must stay on top */
+  position: relative;
+  z-index: 1;
+  transform: none !important;
+  filter: none !important;
+  isolation: auto !important;
+  overflow: visible !important;
 }
 
 .authCard {

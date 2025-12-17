@@ -250,10 +250,8 @@ main {
 
 /* Already handled above in NUCLEAR OPTION section */
 
-/* Add padding to body to compensate for fixed navbar */
-body {
-  padding-top: 60px !important;
-}
+/* Docusaurus Layout handles navbar spacing - DO NOT add padding-top to body */
+/* The Layout component automatically adds the correct offset for the navbar */
 
 /* ============================================================
    EMERGENCY OVERRIDE: Catch any remaining edge cases

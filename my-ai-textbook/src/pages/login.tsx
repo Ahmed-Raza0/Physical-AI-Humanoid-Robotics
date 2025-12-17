@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { motion } from 'framer-motion';
+import { fadeInUp, scaleIn } from '../theme/animations';
 import { getAuthClient } from '../lib/client/authClient';
 import styles from './auth.module.css';
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const authClient = getAuthClient();
@@ -16,6 +19,15 @@ export default function Login(): JSX.Element {
     if (authClient.isAuthenticated()) {
       if (typeof window !== 'undefined') {
         window.location.href = '/dashboard';
+      }
+    }
+
+    // Load remembered email if exists
+    if (typeof window !== 'undefined') {
+      const rememberedEmail = localStorage.getItem('physical_ai_remembered_email');
+      if (rememberedEmail) {
+        setEmail(rememberedEmail);
+        setRememberMe(true);
       }
     }
   }, []);
@@ -28,7 +40,13 @@ export default function Login(): JSX.Element {
     const result = await authClient.login({ email, password });
 
     if (result.success) {
+      // Handle remember me
       if (typeof window !== 'undefined') {
+        if (rememberMe) {
+          localStorage.setItem('physical_ai_remembered_email', email);
+        } else {
+          localStorage.removeItem('physical_ai_remembered_email');
+        }
         window.location.href = '/dashboard';
       }
     } else {
@@ -40,7 +58,12 @@ export default function Login(): JSX.Element {
   return (
     <Layout title="Login" description="Login to your account">
       <div className={styles.authContainer}>
-        <div className={styles.authCard}>
+        <motion.div
+          className={styles.authCard}
+          initial="hidden"
+          animate="visible"
+          variants={scaleIn}
+        >
           <div className={styles.authHeader}>
             <h1>Welcome Back</h1>
             <p>Login to access your dashboard</p>
@@ -82,6 +105,19 @@ export default function Login(): JSX.Element {
               />
             </div>
 
+            <div className={styles.rememberMeContainer}>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  disabled={isLoading}
+                  className={styles.checkbox}
+                />
+                <span className={styles.checkboxText}>Remember my email</span>
+              </label>
+            </div>
+
             <button
               type="submit"
               disabled={isLoading}
@@ -107,7 +143,7 @@ export default function Login(): JSX.Element {
               backend authentication service.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </Layout>
   );

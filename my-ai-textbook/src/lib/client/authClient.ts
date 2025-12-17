@@ -9,6 +9,7 @@ export interface User {
   email: string;
   name: string;
   createdAt: Date;
+  lastActivity?: Date;
 }
 
 export interface AuthState {
@@ -30,6 +31,7 @@ export interface LoginData {
 
 const STORAGE_KEY = 'physical_ai_auth';
 const USERS_KEY = 'physical_ai_users';
+const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes in milliseconds
 
 /**
  * Auth Client for managing authentication
@@ -42,9 +44,57 @@ export class AuthClient {
     isAuthenticated: false,
     isLoading: false,
   };
+  private sessionCheckInterval: NodeJS.Timeout | null = null;
 
   constructor() {
     this.loadFromStorage();
+    this.startSessionCheck();
+  }
+
+  /**
+   * Start session timeout check
+   */
+  private startSessionCheck(): void {
+    if (typeof window === 'undefined') return;
+
+    // Check every minute
+    this.sessionCheckInterval = setInterval(() => {
+      this.checkSession();
+    }, 60 * 1000);
+
+    // Also check on user activity
+    if (typeof window !== 'undefined') {
+      const activityHandler = () => this.updateActivity();
+      window.addEventListener('click', activityHandler);
+      window.addEventListener('keypress', activityHandler);
+      window.addEventListener('scroll', activityHandler);
+    }
+  }
+
+  /**
+   * Check if session has timed out
+   */
+  private checkSession(): void {
+    if (!this.state.isAuthenticated || !this.state.user?.lastActivity) return;
+
+    const now = new Date().getTime();
+    const lastActivity = new Date(this.state.user.lastActivity).getTime();
+    const timeSinceActivity = now - lastActivity;
+
+    if (timeSinceActivity > SESSION_TIMEOUT) {
+      console.log('Session timed out due to inactivity');
+      this.logout();
+    }
+  }
+
+  /**
+   * Update last activity timestamp
+   */
+  private updateActivity(): void {
+    if (!this.state.isAuthenticated || !this.state.user) return;
+
+    this.state.user.lastActivity = new Date();
+    this.saveToStorage(this.state.user);
   }
 
   /**
@@ -58,11 +108,25 @@ export class AuthClient {
       if (stored) {
         const user = JSON.parse(stored);
         user.createdAt = new Date(user.createdAt);
+        user.lastActivity = user.lastActivity ? new Date(user.lastActivity) : new Date();
+
+        // Check if session has expired
+        const now = new Date().getTime();
+        const lastActivity = new Date(user.lastActivity).getTime();
+        const timeSinceActivity = now - lastActivity;
+
+        if (timeSinceActivity > SESSION_TIMEOUT) {
+          console.log('Session expired, clearing auth state');
+          this.saveToStorage(null);
+          return;
+        }
+
         this.state = {
           user,
           isAuthenticated: true,
           isLoading: false,
         };
+        this.updateActivity(); // Update activity on load
         this.notifyListeners();
       }
     } catch (error) {
@@ -170,6 +234,7 @@ export class AuthClient {
         email: data.email,
         name: data.name,
         createdAt: new Date(),
+        lastActivity: new Date(),
       };
 
       // Save user credentials (in production, this would be handled by a backend)
@@ -227,6 +292,7 @@ export class AuthClient {
         email: userCreds.email,
         name: userCreds.name,
         createdAt: new Date(),
+        lastActivity: new Date(),
       };
 
       // Update state
@@ -253,6 +319,12 @@ export class AuthClient {
    * Logout current user
    */
   async logout(): Promise<void> {
+    // Clear session check interval
+    if (this.sessionCheckInterval) {
+      clearInterval(this.sessionCheckInterval);
+      this.sessionCheckInterval = null;
+    }
+
     this.state = {
       user: null,
       isAuthenticated: false,

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Layout from '@theme/Layout';
+import { motion } from 'framer-motion';
+import { fadeInUp, staggerContainer, staggerItem } from '../theme/animations';
 import { getRagClient, type RAGResponse } from '../lib/client/ragClient';
 import styles from './chatbot.module.css';
 
@@ -14,9 +16,12 @@ interface Message {
 const suggestedQuestions = [
   'What is Physical AI?',
   'How does ROS 2 work?',
-  'Explain humanoid robot locomotion',
-  'What is a digital twin?',
-  'Tell me about vision-language-action models',
+  'Explain SLAM for robotics',
+  'What is sensor fusion?',
+  'Tell me about reinforcement learning for robots',
+  'How does robot motion planning work?',
+  'What are vision-language-action models?',
+  'Explain robot manipulation and grasping',
 ];
 
 export default function Chatbot(): JSX.Element {
@@ -32,6 +37,7 @@ export default function Chatbot(): JSX.Element {
   const [isTyping, setIsTyping] = useState(false);
   const [apiKey, setApiKey] = useState('');
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
+  const [errorNotification, setErrorNotification] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const ragClient = useRef(getRagClient()).current;
 
@@ -42,6 +48,35 @@ export default function Chatbot(): JSX.Element {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const exportConversation = () => {
+    const conversationText = messages
+      .map(msg => {
+        const time = msg.timestamp.toLocaleString();
+        const sender = msg.sender === 'user' ? 'You' : 'AI Assistant';
+        let text = `[${time}] ${sender}:\n${msg.text}\n`;
+
+        if (msg.sources && msg.sources.length > 0) {
+          text += '\nSources:\n';
+          msg.sources.forEach(source => {
+            text += `- ${source.title}\n`;
+          });
+        }
+
+        return text;
+      })
+      .join('\n---\n\n');
+
+    const blob = new Blob([conversationText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `chatbot-conversation-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -71,11 +106,33 @@ export default function Chatbot(): JSX.Element {
       };
 
       setMessages(prev => [...prev, botResponse]);
+      setErrorNotification(null); // Clear any previous errors
     } catch (error) {
       console.error('Error getting response:', error);
+
+      // Determine error type and show appropriate message
+      let errorMsg = 'Sorry, I encountered an error processing your request.';
+      let notificationMsg = 'An error occurred. Please try again.';
+
+      if (error instanceof Error) {
+        if (error.message.includes('API key')) {
+          errorMsg = 'It looks like there\'s an issue with the OpenAI API key. I\'ll use my built-in knowledge base instead.';
+          notificationMsg = 'API key error - using fallback mode';
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMsg = 'I\'m having trouble connecting to the AI service. Please check your internet connection.';
+          notificationMsg = 'Network connection issue';
+        } else if (error.message.includes('rate limit')) {
+          errorMsg = 'The AI service is currently rate-limited. Please wait a moment and try again.';
+          notificationMsg = 'Rate limit reached - please wait';
+        }
+      }
+
+      setErrorNotification(notificationMsg);
+      setTimeout(() => setErrorNotification(null), 5000); // Clear notification after 5 seconds
+
       const errorMessage: Message = {
         id: messages.length + 2,
-        text: 'Sorry, I encountered an error. Please try again or check your API key if using advanced AI features.',
+        text: errorMsg + ' You can still ask questions - I\'ll do my best to help using the knowledge base!',
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -116,6 +173,20 @@ export default function Chatbot(): JSX.Element {
       title="AI Chatbot"
       description="Chat with our RAG-powered AI assistant about Physical AI and Robotics">
       <div className={styles.chatbotContainer}>
+        {/* Error Notification */}
+        {errorNotification && (
+          <div className={styles.errorNotification}>
+            <span className={styles.errorIcon}>⚠️</span>
+            <span>{errorNotification}</span>
+            <button
+              className={styles.closeNotification}
+              onClick={() => setErrorNotification(null)}
+            >
+              ×
+            </button>
+          </div>
+        )}
+
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerContent}>
@@ -127,13 +198,23 @@ export default function Chatbot(): JSX.Element {
                 Online • RAG-Powered
               </p>
             </div>
-            <button
-              className={styles.apiKeyButton}
-              onClick={() => setShowApiKeyInput(!showApiKeyInput)}
-              title="Configure OpenAI API Key for advanced AI responses"
-            >
-              🔑 API Key
-            </button>
+            <div className={styles.headerActions}>
+              <button
+                className={styles.exportButton}
+                onClick={exportConversation}
+                title="Export conversation"
+                disabled={messages.length <= 1}
+              >
+                💾 Export
+              </button>
+              <button
+                className={styles.apiKeyButton}
+                onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+                title="Configure OpenAI API Key for advanced AI responses"
+              >
+                🔑 API Key
+              </button>
+            </div>
           </div>
 
           {showApiKeyInput && (
@@ -155,30 +236,41 @@ export default function Chatbot(): JSX.Element {
         <div className={styles.mainContent}>
           {/* Suggested Questions */}
           {messages.length === 1 && (
-            <div className={styles.suggestedQuestions}>
-              <h3>Suggested Questions:</h3>
+            <motion.div
+              className={styles.suggestedQuestions}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
+              <motion.h3 variants={staggerItem}>Suggested Questions:</motion.h3>
               <div className={styles.questionsGrid}>
                 {suggestedQuestions.map((question, index) => (
-                  <button
+                  <motion.button
                     key={index}
                     className={styles.suggestionButton}
                     onClick={() => handleSuggestedQuestion(question)}
+                    variants={staggerItem}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {question}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Messages Container */}
           <div className={styles.messagesContainer}>
             {messages.map(message => (
-              <div
+              <motion.div
                 key={message.id}
                 className={`${styles.messageWrapper} ${
                   message.sender === 'user' ? styles.userMessage : styles.botMessage
                 }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
                 {message.sender === 'bot' && (
                   <div className={styles.messageAvatar}>🤖</div>
@@ -208,7 +300,7 @@ export default function Chatbot(): JSX.Element {
                 {message.sender === 'user' && (
                   <div className={styles.messageAvatar}>👤</div>
                 )}
-              </div>
+              </motion.div>
             ))}
 
             {isTyping && (

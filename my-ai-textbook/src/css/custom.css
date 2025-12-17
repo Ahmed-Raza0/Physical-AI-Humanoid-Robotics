@@ -4,36 +4,82 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Premium color palette - Modern professional theme */
 :root {
-  --ifm-color-primary: #667eea;
-  --ifm-color-primary-dark: #5469e8;
-  --ifm-color-primary-darker: #4860e6;
-  --ifm-color-primary-darkest: #2d48d9;
-  --ifm-color-primary-light: #7893ec;
-  --ifm-color-primary-lighter: #849eee;
-  --ifm-color-primary-lightest: #a3b4f2;
+  /* Primary colors - Deep Blue */
+  --ifm-color-primary: #1E40AF;
+  --ifm-color-primary-dark: #1E3A8A;
+  --ifm-color-primary-darker: #1E3A8A;
+  --ifm-color-primary-darkest: #172554;
+  --ifm-color-primary-light: #3B82F6;
+  --ifm-color-primary-lighter: #60A5FA;
+  --ifm-color-primary-lightest: #DBEAFE;
+
+  /* Secondary colors - Cyan */
+  --color-secondary: #0891B2;
+  --color-secondary-light: #06B6D4;
+  --color-secondary-dark: #0E7490;
+
+  /* Accent colors - Purple */
+  --color-accent: #7C3AED;
+  --color-accent-light: #8B5CF6;
+  --color-accent-dark: #6D28D9;
+
+  /* Semantic colors */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  /* Neutral colors */
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-border: #E2E8F0;
+
+  /* Other variables */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(102, 126, 234, 0.15);
-  --ifm-heading-color: #2d3748;
-  --ifm-link-color: #667eea;
-  --ifm-navbar-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(30, 64, 175, 0.12);
+  --ifm-heading-color: #1E293B;
+  --ifm-link-color: #1E40AF;
+  --ifm-navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode - Enhanced readability */
 [data-theme='dark'] {
-  --ifm-color-primary: #a3b4f2;
-  --ifm-color-primary-dark: #8da0ef;
-  --ifm-color-primary-darker: #7d93ed;
-  --ifm-color-primary-darkest: #5469e8;
-  --ifm-color-primary-light: #b9c7f5;
-  --ifm-color-primary-lighter: #c4d0f7;
-  --ifm-color-primary-lightest: #dfe5fb;
-  --docusaurus-highlighted-code-line-bg: rgba(163, 180, 242, 0.15);
-  --ifm-heading-color: #f7fafc;
-  --ifm-link-color: #a3b4f2;
-  --ifm-background-color: #0d1117;
-  --ifm-navbar-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.5);
+  /* Primary colors - Lighter for dark mode */
+  --ifm-color-primary: #3B82F6;
+  --ifm-color-primary-dark: #2563EB;
+  --ifm-color-primary-darker: #1D4ED8;
+  --ifm-color-primary-darkest: #1E40AF;
+  --ifm-color-primary-light: #60A5FA;
+  --ifm-color-primary-lighter: #93C5FD;
+  --ifm-color-primary-lightest: #DBEAFE;
+
+  /* Secondary colors */
+  --color-secondary: #06B6D4;
+  --color-secondary-light: #22D3EE;
+  --color-secondary-dark: #0891B2;
+
+  /* Accent colors */
+  --color-accent: #8B5CF6;
+  --color-accent-light: #A78BFA;
+  --color-accent-dark: #7C3AED;
+
+  /* Neutral colors */
+  --color-background: #0F172A;
+  --color-surface: #1E293B;
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #CBD5E1;
+  --color-border: #334155;
+
+  /* Other variables */
+  --docusaurus-highlighted-code-line-bg: rgba(59, 130, 246, 0.15);
+  --ifm-heading-color: #F8FAFC;
+  --ifm-link-color: #60A5FA;
+  --ifm-background-color: #0F172A;
+  --ifm-navbar-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Global smooth scrolling */
@@ -48,13 +94,15 @@ html {
 
 /* Enhanced navbar */
 .navbar {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   background-color: rgba(255, 255, 255, 0.95) !important;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 [data-theme='dark'] .navbar {
-  background-color: rgba(13, 17, 23, 0.95) !important;
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  border-bottom-color: var(--color-border);
 }
 
 .navbar__item {
@@ -104,15 +152,25 @@ pre:hover {
 
 /* Card styling */
 .card {
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(102, 126, 234, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .card:hover {
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
-  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(30, 64, 175, 0.15);
+  transform: translateY(-8px);
+  border-color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
 }
 
 /* Enhanced markdown content */
@@ -143,35 +201,51 @@ h1::after, h2::after {
   bottom: 0;
   left: 0;
   width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--ifm-color-primary), transparent);
+  height: 4px;
+  background: linear-gradient(90deg, var(--ifm-color-primary), var(--color-secondary), transparent);
   border-radius: 2px;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 /* Sidebar animations */
 .menu__link {
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 2px 0;
 }
 
 .menu__link:hover {
-  background-color: rgba(102, 126, 234, 0.1);
-  transform: translateX(5px);
+  background-color: var(--ifm-color-primary-lightest);
+  transform: translateX(6px);
+}
+
+[data-theme='dark'] .menu__link:hover {
+  background-color: rgba(59, 130, 246, 0.15);
 }
 
 .menu__link--active {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.15), transparent);
-  border-left: 3px solid var(--ifm-color-primary);
+  background: linear-gradient(90deg, var(--ifm-color-primary-lightest), transparent);
+  border-left: 4px solid var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .menu__link--active {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), transparent);
 }
 
 /* Footer styling */
 .footer {
-  background: linear-gradient(180deg, transparent 0%, rgba(102, 126, 234, 0.05) 100%);
-  border-top: 1px solid rgba(102, 126, 234, 0.1);
+  background: linear-gradient(180deg, transparent 0%, var(--ifm-color-primary-lightest) 100%);
+  border-top: 1px solid var(--color-border);
 }
 
 [data-theme='dark'] .footer {
-  background: linear-gradient(180deg, transparent 0%, rgba(102, 126, 234, 0.1) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(30, 64, 175, 0.1) 100%);
 }
 
 /* Scrollbar styling */
@@ -185,12 +259,12 @@ h1::after, h2::after {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #667eea, #764ba2);
+  background: linear-gradient(180deg, var(--ifm-color-primary), var(--color-secondary));
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #5469e8, #6a3f91);
+  background: linear-gradient(180deg, var(--ifm-color-primary-dark), var(--color-secondary-dark));
 }
 
 /* Loading animation */
@@ -207,9 +281,133 @@ h1::after, h2::after {
   animation: shimmer 2s infinite linear;
   background: linear-gradient(
     90deg,
-    rgba(102, 126, 234, 0.1) 0%,
-    rgba(102, 126, 234, 0.2) 50%,
-    rgba(102, 126, 234, 0.1) 100%
+    var(--ifm-color-primary-lightest) 0%,
+    var(--ifm-color-primary-lighter) 50%,
+    var(--ifm-color-primary-lightest) 100%
   );
   background-size: 1000px 100%;
+}
+
+/* Additional utility classes */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-light) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--ifm-color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   Landscape Orientation Optimizations for Tablets
+   ======================================== */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Optimize navbar for landscape tablets */
+  .navbar {
+    padding: 8px 16px;
+  }
+
+  /* Adjust article padding for better use of horizontal space */
+  article {
+    padding: 20px 40px;
+  }
+
+  /* Make sidebar narrower in landscape to maximize content area */
+  .menu {
+    max-width: 220px;
+  }
+
+  /* Optimize code blocks for landscape viewing */
+  pre {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  /* Adjust card layouts to use horizontal space better */
+  .card {
+    padding: 20px 30px;
+  }
+
+  /* Reduce vertical spacing in landscape */
+  h1 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* ========================================
+   Accessibility: Reduced Motion Support
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable smooth scrolling */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Remove all transitions and animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable transform animations but keep opacity for clarity */
+  .navbar__link:hover,
+  a:hover,
+  .button:hover,
+  .card:hover,
+  .menu__link:hover,
+  pre:hover {
+    transform: none !important;
+  }
+
+  /* Disable keyframe animations */
+  @keyframes fadeInContent,
+  @keyframes gradientShift,
+  @keyframes shimmer {
+    0%, 100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Ensure article content is immediately visible */
+  article {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Disable heading underline animation */
+  h1::after, h2::after {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* Disable loading animation */
+  .loading {
+    animation: none;
+  }
 }

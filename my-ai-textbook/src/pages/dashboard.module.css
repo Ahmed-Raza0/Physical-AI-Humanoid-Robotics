@@ -1,6 +1,8 @@
 .dashboardContainer {
   min-height: calc(100vh - 60px);
   background: #f7fafc;
+  position: relative;
+  z-index: 1;
 }
 
 .loadingContainer {
@@ -339,12 +341,29 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Dashboard header mobile fixes */
+  .dashboardHeader {
+    padding: 30px 16px;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
   .headerContent h1 {
     font-size: 1.5rem;
   }
 
   .subtitle {
     font-size: 0.95rem;
+  }
+
+  .logoutButton {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
   }
 
   .dashboardContent {

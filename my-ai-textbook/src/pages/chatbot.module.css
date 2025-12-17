@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 1;
 }
 
 /* Error Notification */
@@ -24,7 +25,7 @@
   gap: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   animation: slideInDown 0.3s ease-out;
-  z-index: 1000;
+  z-index: 9997;
   max-width: 90%;
   font-weight: 500;
 }
@@ -583,14 +584,56 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Header mobile fixes */
+  .header {
+    padding: 20px 16px;
+  }
+
+  .headerContent {
+    gap: 12px;
+  }
+
   .headerInfo h1 {
     font-size: 1.3rem;
+  }
+
+  .headerInfo .status {
+    font-size: 0.8rem;
   }
 
   .botAvatar {
     width: 50px;
     height: 50px;
     font-size: 1.5rem;
+  }
+
+  /* Make header actions stack on mobile */
+  .headerActions {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    order: 3;
+  }
+
+  .exportButton,
+  .apiKeyButton {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    flex: 1;
+  }
+
+  /* API key input on mobile */
+  .apiKeyInput {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .apiInput {
+    width: 100%;
+  }
+
+  .apiSubmit {
+    width: 100%;
   }
 
   .messageBubble {

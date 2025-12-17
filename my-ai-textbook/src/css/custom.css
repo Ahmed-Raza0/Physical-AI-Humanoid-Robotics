@@ -92,17 +92,80 @@ html {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Enhanced navbar */
+/* Enhanced navbar with proper z-index stacking */
 .navbar {
   backdrop-filter: blur(12px);
   background-color: rgba(255, 255, 255, 0.95) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
 [data-theme='dark'] .navbar {
   background-color: rgba(15, 23, 42, 0.95) !important;
   border-bottom-color: var(--color-border);
+}
+
+/* Mobile menu and sidebar z-index fixes */
+.navbar-sidebar {
+  z-index: 10000 !important;
+}
+
+.navbar-sidebar__backdrop {
+  z-index: 9998 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.navbar-sidebar__brand,
+.navbar-sidebar__items {
+  z-index: 10001 !important;
+}
+
+/* Ensure mobile menu toggle button is accessible */
+.navbar__toggle {
+  z-index: 10002 !important;
+}
+
+/* Global z-index hierarchy to prevent stacking issues */
+/* Layer 1: Page content (z-index: 1) */
+/* Layer 2: Modals and overlays (z-index: 1000-5000) */
+/* Layer 3: Navigation (z-index: 9998-10002) */
+
+/* Ensure main content stays below navbar */
+main,
+.main-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent page containers from creating new stacking contexts above navbar */
+[class*="Container"] {
+  isolation: auto;
+}
+
+/* Ensure dropdowns and modals use appropriate z-index */
+.dropdown,
+.modal {
+  z-index: 5000;
+}
+
+/* Framer Motion animations - maintain stacking order */
+[data-framer-motion] {
+  will-change: transform, opacity;
+  /* Do not create new stacking context */
+  isolation: auto;
+}
+
+/* Ensure sidebar doesn't get clipped */
+.theme-doc-sidebar-container {
+  z-index: 10;
+}
+
+/* Table of contents sidebar */
+.table-of-contents {
+  z-index: 5;
 }
 
 .navbar__item {

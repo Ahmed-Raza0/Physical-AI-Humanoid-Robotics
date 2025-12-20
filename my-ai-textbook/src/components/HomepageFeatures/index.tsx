@@ -82,6 +82,21 @@ export default function HomepageFeatures(): ReactNode {
   return (
     <section className={styles.features}>
       <div className="container">
+        <motion.div
+          className={styles.sectionHeader}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+          }}
+        >
+          <h2 className={styles.sectionTitle}>Why Choose Our Platform?</h2>
+          <p className={styles.sectionSubtitle}>
+            Everything you need to master Physical AI and Humanoid Robotics
+          </p>
+        </motion.div>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} delay={idx * 0.2} />

@@ -170,3 +170,173 @@ export const pageTransition = {
     },
   },
 };
+
+// Additional animation variants for enhanced interactions
+export const bounceIn = createVariant(
+  { opacity: 0, scale: 0.3 },
+  { opacity: 1, scale: 1 },
+  {
+    duration: getTransitionDuration(0.6),
+    ease: [0.68, -0.55, 0.265, 1.55], // bounce effect
+  }
+);
+
+export const rotateIn = createVariant(
+  { opacity: 0, rotate: -180 },
+  { opacity: 1, rotate: 0 },
+  { duration: getTransitionDuration(0.6), ease: 'easeOut' }
+);
+
+export const flipIn = createVariant(
+  { opacity: 0, rotateY: -90 },
+  { opacity: 1, rotateY: 0 },
+  { duration: getTransitionDuration(0.6), ease: 'easeOut' }
+);
+
+export const expandIn = createVariant(
+  { opacity: 0, scaleX: 0 },
+  { opacity: 1, scaleX: 1 },
+  { duration: getTransitionDuration(0.5), ease: 'easeOut' }
+);
+
+export const collapseOut = {
+  exit: {
+    opacity: 0,
+    scaleY: prefersReducedMotion() ? 1 : 0,
+    transition: {
+      duration: getTransitionDuration(0.3),
+      ease: 'easeIn',
+    },
+  },
+};
+
+// List animations with stagger
+export const listContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: prefersReducedMotion() ? 0 : 0.07,
+      delayChildren: prefersReducedMotion() ? 0 : 0.1,
+    },
+  },
+};
+
+export const listItem = createVariant(
+  { opacity: 0, x: -20 },
+  { opacity: 1, x: 0 },
+  { duration: getTransitionDuration(0.4), ease: 'easeOut' }
+);
+
+// Notification/Toast animations
+export const notificationSlideIn = {
+  initial: {
+    opacity: 0,
+    y: prefersReducedMotion() ? 0 : -50,
+    scale: prefersReducedMotion() ? 1 : 0.95,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: getTransitionDuration(0.3),
+      ease: 'easeOut',
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: prefersReducedMotion() ? 0 : -20,
+    scale: prefersReducedMotion() ? 1 : 0.95,
+    transition: {
+      duration: getTransitionDuration(0.2),
+      ease: 'easeIn',
+    },
+  },
+};
+
+// Modal/Dialog animations
+export const modalBackdrop = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: getTransitionDuration(0.2),
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: getTransitionDuration(0.2),
+    },
+  },
+};
+
+export const modalContent = {
+  hidden: {
+    opacity: 0,
+    scale: prefersReducedMotion() ? 1 : 0.95,
+    y: prefersReducedMotion() ? 0 : 20,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: getTransitionDuration(0.3),
+      ease: 'easeOut',
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: prefersReducedMotion() ? 1 : 0.95,
+    y: prefersReducedMotion() ? 0 : 20,
+    transition: {
+      duration: getTransitionDuration(0.2),
+      ease: 'easeIn',
+    },
+  },
+};
+
+// Skeleton loading shimmer
+export const shimmer = prefersReducedMotion()
+  ? {}
+  : {
+      backgroundImage: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+      backgroundSize: '200% 100%',
+      animation: 'shimmer 1.5s infinite',
+    };
+
+// Progress animations
+export const progressBar = {
+  initial: { scaleX: 0, transformOrigin: 'left' },
+  animate: (custom: number) => ({
+    scaleX: custom / 100,
+    transition: {
+      duration: getTransitionDuration(0.5),
+      ease: 'easeOut',
+    },
+  }),
+};
+
+// Accordion/Collapsible animations
+export const accordionContent = {
+  collapsed: {
+    height: 0,
+    opacity: 0,
+    overflow: 'hidden',
+    transition: {
+      duration: getTransitionDuration(0.3),
+      ease: 'easeInOut',
+    },
+  },
+  expanded: {
+    height: 'auto',
+    opacity: 1,
+    overflow: 'visible',
+    transition: {
+      duration: getTransitionDuration(0.3),
+      ease: 'easeInOut',
+    },
+  },
+};

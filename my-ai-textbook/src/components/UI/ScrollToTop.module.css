@@ -1,0 +1,80 @@
+.scrollToTop {
+  position: fixed;
+  z-index: var(--ifm-z-index-fixed);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ifm-color-primary);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.scrollToTop:hover {
+  background: var(--ifm-color-primary-dark);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scrollToTop:active {
+  background: var(--ifm-color-primary-darker);
+}
+
+.scrollToTop svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Position variants */
+.bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.bottom-left {
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.bottom-center {
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scrollToTop {
+    width: 40px;
+    height: 40px;
+    bottom: 1rem;
+  }
+
+  .scrollToTop svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bottom-right {
+    right: 1rem;
+  }
+
+  .bottom-left {
+    left: 1rem;
+  }
+}
+
+/* Dark mode */
+[data-theme='dark'] .scrollToTop {
+  background: var(--ifm-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .scrollToTop:hover {
+  background: var(--ifm-color-primary-light);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}

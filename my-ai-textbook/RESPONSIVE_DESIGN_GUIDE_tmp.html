@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RESPONSIVE_DESIGN_GUIDE.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///r%3A/2.Travail/1.Enseignement/Cours/_1.Outils/2.Developpement/1.SCSS/main.css" type="text/css"><link rel="stylesheet" href="file:///d%3A/rdaros/Cours/_1.Outils/2.Developpement/1.SCSS/main.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="responsive-design-guide">Responsive Design Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>All pages in the Physical AI &amp; Humanoid Robotics platform are fully responsive across:</p>
+<ul>
+<li><strong>Mobile devices</strong> (320px - 768px)</li>
+<li><strong>Tablets</strong> (769px - 1024px)</li>
+<li><strong>Desktop/Laptop</strong> (1025px+)</li>
+</ul>
+<h2 id="breakpoint-strategy">Breakpoint Strategy</h2>
+<h3 id="standard-breakpoints">Standard Breakpoints</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Desktop (default) - 1025px and above */</span>
+<span class="hljs-selector-tag">Default</span> <span class="hljs-selector-tag">styles</span> <span class="hljs-selector-tag">apply</span>
+
+<span class="hljs-comment">/* Tablet - 769px to 1024px */</span>
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width:</span> <span class="hljs-number">1024px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">769px</span>) {
+  <span class="hljs-comment">/* Tablet-specific styles */</span>
+}
+
+<span class="hljs-comment">/* Mobile - 768px and below */</span>
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-comment">/* Mobile-specific styles */</span>
+}
+</div></code></pre>
+<h2 id="pages-responsive-status">Pages Responsive Status</h2>
+<h3 id="%E2%9C%85-homepage">✅ Homepage (<code>/</code>)</h3>
+<ul>
+<li><strong>Layout</strong>: Flexbox with centered content</li>
+<li><strong>Hero Section</strong>:
+<ul>
+<li>Desktop: Full-width with large title (3.5rem)</li>
+<li>Tablet: Reduced padding, medium title (3rem)</li>
+<li>Mobile: Compact layout, small title (2rem), stacked buttons</li>
+</ul>
+</li>
+<li><strong>Features Section</strong>:
+<ul>
+<li>Desktop: 3-column grid</li>
+<li>Tablet: 3-column grid with smaller SVGs (180px)</li>
+<li>Mobile: Single column stack, smaller SVGs (150px)</li>
+</ul>
+</li>
+<li><strong>Navigation</strong>: Docusaurus responsive navbar (hamburger menu on mobile)</li>
+</ul>
+<h3 id="%E2%9C%85-blog-page-blog">✅ Blog Page (<code>/blog</code>)</h3>
+<ul>
+<li><strong>Layout</strong>: Container with max-width</li>
+<li><strong>Hero Section</strong>:
+<ul>
+<li>Desktop: Full-width header</li>
+<li>Tablet: Medium padding, 2-column grid for posts</li>
+<li>Mobile: Single column, compact header</li>
+</ul>
+</li>
+<li><strong>Blog Grid</strong>:
+<ul>
+<li>Desktop: 3 cards per row</li>
+<li>Tablet: 2 cards per row</li>
+<li>Mobile: 1 card per row (full width)</li>
+</ul>
+</li>
+<li><strong>Category Filter</strong>:
+<ul>
+<li>Desktop: Horizontal scroll with all buttons visible</li>
+<li>Tablet: Horizontal scroll</li>
+<li>Mobile: Horizontal scroll with touch scrolling</li>
+</ul>
+</li>
+<li><strong>Search Box</strong>: Full width on all devices with proper padding</li>
+</ul>
+<h3 id="%E2%9C%85-chatbot-page-chatbot">✅ Chatbot Page (<code>/chatbot</code>)</h3>
+<ul>
+<li><strong>Layout</strong>: Full-height container</li>
+<li><strong>Header</strong>:
+<ul>
+<li>Desktop: Flexbox with avatar and info</li>
+<li>Tablet: Wrapped layout with API key button</li>
+<li>Mobile: Stacked layout</li>
+</ul>
+</li>
+<li><strong>Messages Container</strong>:
+<ul>
+<li>Desktop: Max 70% width for message bubbles</li>
+<li>Tablet: Max 80% width</li>
+<li>Mobile: Max 85% width</li>
+</ul>
+</li>
+<li><strong>Suggested Questions</strong>:
+<ul>
+<li>Desktop: Grid with minmax(250px, 1fr)</li>
+<li>Tablet: 2 columns</li>
+<li>Mobile: Single column stack</li>
+</ul>
+</li>
+<li><strong>Input Area</strong>: Sticky bottom, full width on all devices</li>
+</ul>
+<h3 id="%E2%9C%85-auth-pages-login-signup">✅ Auth Pages (<code>/login</code>, <code>/signup</code>)</h3>
+<ul>
+<li><strong>Layout</strong>: Centered card layout</li>
+<li><strong>Auth Card</strong>:
+<ul>
+<li>Desktop: Max 450px width, centered</li>
+<li>Tablet: Max 450px width with margins</li>
+<li>Mobile: Full width minus 20px margins</li>
+</ul>
+</li>
+<li><strong>Form Inputs</strong>: Full width with proper padding</li>
+<li><strong>Buttons</strong>: Full width, responsive font sizes</li>
+<li><strong>Mobile</strong>: Reduced padding (30px vs 40px)</li>
+</ul>
+<h3 id="%E2%9C%85-dashboard-page-dashboard">✅ Dashboard Page (<code>/dashboard</code>)</h3>
+<ul>
+<li><strong>Layout</strong>: Grid system</li>
+<li><strong>Header</strong>:
+<ul>
+<li>Desktop: Flexbox with logout button on right</li>
+<li>Tablet: Wrapped layout</li>
+<li>Mobile: Stacked layout</li>
+</ul>
+</li>
+<li><strong>Dashboard Grid</strong>:
+<ul>
+<li>Desktop: Auto-fit grid (minmax 300px)</li>
+<li>Tablet: 2 columns</li>
+<li>Mobile: Single column</li>
+</ul>
+</li>
+<li><strong>Action Buttons</strong>:
+<ul>
+<li>Desktop: Grid with minmax(200px, 1fr)</li>
+<li>Tablet: 2 columns</li>
+<li>Mobile: Single column full width</li>
+</ul>
+</li>
+<li><strong>Progress Bars</strong>: Full width on all devices</li>
+</ul>
+<h2 id="component-specific-responsive-features">Component-Specific Responsive Features</h2>
+<h3 id="navigation-docusaurus">Navigation (Docusaurus)</h3>
+<ul>
+<li><strong>Desktop</strong>: Full horizontal menu</li>
+<li><strong>Tablet</strong>: Condensed menu</li>
+<li><strong>Mobile</strong>: Hamburger menu with slide-out drawer</li>
+<li><strong>New Links</strong>: Dashboard and Login added to navbar</li>
+</ul>
+<h3 id="cards">Cards</h3>
+<p>All card components have:</p>
+<ul>
+<li>Hover effects (disabled on touch devices)</li>
+<li>Responsive padding</li>
+<li>Stack on mobile</li>
+<li>Proper text scaling</li>
+</ul>
+<h3 id="imagessvgs">Images/SVGs</h3>
+<ul>
+<li>Scale proportionally</li>
+<li>Maintain aspect ratio</li>
+<li>Reduce size on smaller screens</li>
+<li>Use CSS <code>max-width: 100%</code></li>
+</ul>
+<h3 id="typography">Typography</h3>
+<p>Responsive font sizes:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Desktop */</span>
+<span class="hljs-selector-tag">h1</span>: 3<span class="hljs-selector-class">.5rem</span>
+<span class="hljs-selector-tag">h2</span>: 2<span class="hljs-selector-class">.5rem</span>
+<span class="hljs-selector-tag">h3</span>: 1<span class="hljs-selector-class">.5rem</span>
+<span class="hljs-selector-tag">p</span>: 1<span class="hljs-selector-tag">rem</span>
+
+<span class="hljs-comment">/* Tablet */</span>
+<span class="hljs-selector-tag">h1</span>: 3<span class="hljs-selector-tag">rem</span>
+<span class="hljs-selector-tag">h2</span>: 2<span class="hljs-selector-tag">rem</span>
+<span class="hljs-selector-tag">h3</span>: 1<span class="hljs-selector-class">.3rem</span>
+<span class="hljs-selector-tag">p</span>: 1<span class="hljs-selector-tag">rem</span>
+
+<span class="hljs-comment">/* Mobile */</span>
+<span class="hljs-selector-tag">h1</span>: 2<span class="hljs-selector-tag">rem</span>
+<span class="hljs-selector-tag">h2</span>: 1<span class="hljs-selector-class">.5rem</span>
+<span class="hljs-selector-tag">h3</span>: 1<span class="hljs-selector-class">.2rem</span>
+<span class="hljs-selector-tag">p</span>: 0<span class="hljs-selector-class">.95rem</span>
+</div></code></pre>
+<h3 id="spacing">Spacing</h3>
+<p>Consistent spacing scale:</p>
+<ul>
+<li>Desktop: Full padding (40px - 80px)</li>
+<li>Tablet: Medium padding (30px - 50px)</li>
+<li>Mobile: Compact padding (20px - 40px)</li>
+</ul>
+<h2 id="touch-friendly-features">Touch-Friendly Features</h2>
+<p>All interactive elements have:</p>
+<ul>
+<li>Minimum touch target: 44px × 44px</li>
+<li>Proper spacing between clickable items</li>
+<li>No hover-dependent functionality</li>
+<li>Touch-scrolling support (<code>-webkit-overflow-scrolling: touch</code>)</li>
+</ul>
+<h2 id="performance-optimizations">Performance Optimizations</h2>
+<ul>
+<li>CSS animations use <code>transform</code> and <code>opacity</code> (GPU-accelerated)</li>
+<li>Media queries loaded only when needed</li>
+<li>Images are responsive (though using SVG/emoji mostly)</li>
+<li>No layout shifts during responsive transitions</li>
+</ul>
+<h2 id="testing-checklist">Testing Checklist</h2>
+<h3 id="desktop-1920px-1440px-1280px">Desktop (1920px, 1440px, 1280px)</h3>
+<ul>
+<li>[✓] All content fits without horizontal scroll</li>
+<li>[✓] Proper margins and max-width constraints</li>
+<li>[✓] Hover effects work</li>
+<li>[✓] All navigation links accessible</li>
+</ul>
+<h3 id="tablet-1024px-768px-landscape">Tablet (1024px, 768px landscape)</h3>
+<ul>
+<li>[✓] Content reflows appropriately</li>
+<li>[✓] Cards stack in 2 columns where appropriate</li>
+<li>[✓] Touch targets are adequate</li>
+<li>[✓] No cut-off text or images</li>
+</ul>
+<h3 id="mobile-414px-iphone-375px-360px-android-320px-small">Mobile (414px iPhone, 375px, 360px Android, 320px small)</h3>
+<ul>
+<li>[✓] Single column layout</li>
+<li>[✓] Full-width buttons</li>
+<li>[✓] Readable text (no zooming required)</li>
+<li>[✓] Hamburger menu works</li>
+<li>[✓] Forms are usable</li>
+<li>[✓] Sticky elements don't overlap content</li>
+</ul>
+<h2 id="dark-mode-support">Dark Mode Support</h2>
+<p>All pages include dark mode support:</p>
+<pre class="hljs"><code><div><span class="hljs-selector-attr">[data-theme=<span class="hljs-string">'dark'</span>]</span> <span class="hljs-selector-class">.className</span> {
+  <span class="hljs-comment">/* Dark mode styles */</span>
+}
+</div></code></pre>
+<p>Features:</p>
+<ul>
+<li>Automatic based on system preference</li>
+<li>Manual toggle in navbar</li>
+<li>Proper contrast ratios</li>
+<li>Themed components</li>
+</ul>
+<h2 id="browser-support">Browser Support</h2>
+<p>Tested and working on:</p>
+<ul>
+<li>Chrome/Edge (latest)</li>
+<li>Firefox (latest)</li>
+<li>Safari (latest)</li>
+<li>Mobile Safari (iOS 14+)</li>
+<li>Chrome Mobile (Android)</li>
+</ul>
+<h2 id="known-issues">Known Issues</h2>
+<p>None currently identified.</p>
+<h2 id="future-enhancements">Future Enhancements</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Add landscape-specific styles for tablets</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Implement print styles</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Add reduced-motion media query support</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Optimize for foldable devices</label></li>
+</ul>
+<h2 id="css-architecture">CSS Architecture</h2>
+<p>All responsive styles follow this pattern:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Base styles (mobile-first approach could be used, but we use desktop-first) */</span>
+<span class="hljs-selector-class">.component</span> {
+  <span class="hljs-comment">/* Desktop styles */</span>
+}
+
+<span class="hljs-comment">/* Tablet breakpoint */</span>
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width:</span> <span class="hljs-number">1024px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">769px</span>) {
+  <span class="hljs-selector-class">.component</span> {
+    <span class="hljs-comment">/* Tablet adjustments */</span>
+  }
+}
+
+<span class="hljs-comment">/* Mobile breakpoint */</span>
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.component</span> {
+    <span class="hljs-comment">/* Mobile adjustments */</span>
+  }
+}
+
+<span class="hljs-comment">/* Dark mode */</span>
+<span class="hljs-selector-attr">[data-theme=<span class="hljs-string">'dark'</span>]</span> <span class="hljs-selector-class">.component</span> {
+  <span class="hljs-comment">/* Dark mode styles */</span>
+}
+</div></code></pre>
+<h2 id="maintenance">Maintenance</h2>
+<p>When adding new components:</p>
+<ol>
+<li>Start with desktop styles</li>
+<li>Add tablet breakpoint (769px - 1024px)</li>
+<li>Add mobile breakpoint (max 768px)</li>
+<li>Test on real devices</li>
+<li>Add dark mode support</li>
+<li>Ensure touch-friendly</li>
+<li>Test with DevTools responsive mode</li>
+</ol>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://docusaurus.io/docs/styling-layout">Docusaurus Responsive Design</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries">MDN Media Queries</a></li>
+<li><a href="https://search.google.com/test/mobile-friendly">Google Mobile-Friendly Test</a></li>
+</ul>
+<hr>
+<p>Last Updated: December 2024</p>
+
+</body>
+
+</html>

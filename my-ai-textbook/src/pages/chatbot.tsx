@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer, staggerItem } from '../styles/animations';
 import { getRagClient, type RAGResponse } from '../lib/client/ragClient';
+import { TypingIndicator } from '../components/UI/TypingIndicator';
 import styles from './chatbot.module.css';
 
 interface Message {
@@ -48,6 +49,17 @@ export default function Chatbot(): JSX.Element {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const clearConversation = () => {
+    setMessages([
+      {
+        id: 1,
+        text: 'Hello! I\'m your Physical AI assistant powered by RAG (Retrieval-Augmented Generation). Ask me anything about robotics, AI, ROS 2, or humanoid robots!',
+        sender: 'bot',
+        timestamp: new Date(),
+      },
+    ]);
+  };
 
   const exportConversation = () => {
     const conversationText = messages
@@ -200,6 +212,14 @@ export default function Chatbot(): JSX.Element {
             </div>
             <div className={styles.headerActions}>
               <button
+                className={styles.clearButton}
+                onClick={clearConversation}
+                title="Clear conversation"
+                disabled={messages.length <= 1}
+              >
+                🗑️ Clear
+              </button>
+              <button
                 className={styles.exportButton}
                 onClick={exportConversation}
                 title="Export conversation"
@@ -304,14 +324,15 @@ export default function Chatbot(): JSX.Element {
             ))}
 
             {isTyping && (
-              <div className={`${styles.messageWrapper} ${styles.botMessage}`}>
+              <motion.div
+                className={`${styles.messageWrapper} ${styles.botMessage}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
                 <div className={styles.messageAvatar}>🤖</div>
-                <div className={styles.typingIndicator}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
+                <TypingIndicator />
+              </motion.div>
             )}
 
             <div ref={messagesEndRef} />

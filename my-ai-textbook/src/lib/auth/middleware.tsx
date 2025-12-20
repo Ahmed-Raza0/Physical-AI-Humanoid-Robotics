@@ -2,6 +2,7 @@
  * Auth Middleware - Protect routes and check authentication
  */
 
+import React from 'react';
 import { auth } from './config';
 
 export interface AuthMiddlewareOptions {
@@ -66,11 +67,11 @@ export function useAuth() {
 /**
  * Higher-order component to protect pages
  */
-export function withAuth<P extends object>(
+export function withAuth<P extends Record<string, any>>(
   Component: React.ComponentType<P>,
   options: AuthMiddlewareOptions = {}
-) {
-  return function AuthenticatedComponent(props: P) {
+): React.FC<P> {
+  const AuthenticatedComponent: React.FC<P> = (props: P) => {
     const { isAuthenticated, loading } = useAuth();
 
     if (loading) {
@@ -86,6 +87,8 @@ export function withAuth<P extends object>(
 
     return <Component {...props} />;
   };
+
+  return AuthenticatedComponent;
 }
 
 /**

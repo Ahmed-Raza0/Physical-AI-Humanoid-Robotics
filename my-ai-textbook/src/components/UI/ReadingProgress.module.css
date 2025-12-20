@@ -1,0 +1,31 @@
+.container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: var(--ifm-z-index-fixed);
+  background: var(--ifm-color-emphasis-200);
+}
+
+.container.top {
+  top: 0;
+}
+
+.container.bottom {
+  bottom: 0;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--ifm-color-primary);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* Dark mode */
+[data-theme='dark'] .container {
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .progressBar {
+  background: var(--ifm-color-primary-light);
+}

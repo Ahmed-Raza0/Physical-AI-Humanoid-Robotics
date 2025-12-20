@@ -19,7 +19,7 @@ The design system provides consistent styling tokens across the application.
 ### Import
 
 ```typescript
-import { spacing, typography, shadows, borderRadius, colors } from '@site/src/theme';
+import { spacing, typography, shadows, borderRadius, colors } from '@site/src/styles';
 ```
 
 ### Available Tokens
@@ -376,7 +376,7 @@ Pre-built animation variants for Framer Motion.
 
 ```tsx
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer, cardVariants } from '@site/src/theme';
+import { fadeInUp, staggerContainer, cardVariants } from '@site/src/styles';
 
 // Basic animations
 <motion.div

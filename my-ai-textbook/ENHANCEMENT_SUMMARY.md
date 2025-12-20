@@ -366,7 +366,7 @@ function ResponsiveComponent() {
 
 ```tsx
 import { motion } from 'framer-motion';
-import { listContainer, listItem, bounceIn } from '@site/src/theme';
+import { listContainer, listItem, bounceIn } from '@site/src/styles';
 
 <motion.ul variants={listContainer} initial="hidden" animate="visible">
   {items.map(item => (

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { buttonHover } from '../../theme/animations';
+import { buttonHover } from '../../styles/animations';
 
 interface AnimatedButtonProps {
   children: ReactNode;

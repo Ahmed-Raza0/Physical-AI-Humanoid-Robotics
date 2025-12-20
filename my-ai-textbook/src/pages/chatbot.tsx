@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer, staggerItem } from '../theme/animations';
+import { fadeInUp, staggerContainer, staggerItem } from '../styles/animations';
 import { getRagClient, type RAGResponse } from '../lib/client/ragClient';
 import styles from './chatbot.module.css';
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { motion } from 'framer-motion';
-import { fadeInUp, scaleIn } from '../theme/animations';
+import { fadeInUp, scaleIn } from '../styles/animations';
 import { getAuthClient } from '../lib/client/authClient';
 import styles from './auth.module.css';
 

@@ -2,7 +2,7 @@ import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem, cardVariants } from '../../theme/animations';
+import { staggerContainer, staggerItem, cardVariants } from '../../styles/animations';
 import styles from './styles.module.css';
 
 type FeatureItem = {

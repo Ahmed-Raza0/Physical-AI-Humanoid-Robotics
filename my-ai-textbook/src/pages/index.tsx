@@ -6,7 +6,7 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 import { motion } from 'framer-motion';
-import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '../theme/animations';
+import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '../styles/animations';
 
 import styles from './index.module.css';
 

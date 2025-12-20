@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../theme/animations';
+import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../styles/animations';
 import styles from './blog.module.css';
 
 interface BlogPost {

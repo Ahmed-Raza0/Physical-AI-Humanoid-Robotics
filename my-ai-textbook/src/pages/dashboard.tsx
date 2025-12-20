@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../theme/animations';
+import { fadeInUp, staggerContainer, staggerItem, cardVariants } from '../styles/animations';
 import { getAuthClient, type User } from '../lib/client/authClient';
 import styles from './dashboard.module.css';
 
